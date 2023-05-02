@@ -212,3 +212,30 @@ print(unassigned_classes.count())
 
 #Need to find the average prices of the rooms by the amount of people that are in the rooms 
 
+
+#Okay I already found the percentage price for each room but they are not ordered
+count = 0
+for col in df:
+    if count == 5:
+        some = df.loc[(df[col]>=100) & (df[col] < 200)] 
+    count += 1 
+some["Price_per_station"] = some['ASF'] / some['Stations']
+some2 = some.loc[some['Price_per_station'] < 99999999]
+print(some2.first)
+#some2.plot.hist(x = 'Stations', y = 'ASF', rot = 0)
+#plt.show()
+gra = some2.groupby(['Stations'])['Price_per_station'].mean()
+gra2 = some2.groupby(['Stations'])['Price_per_station'].count()
+print(gra)
+print(gra2)
+
+#look at 36 seems the best value 22.730556
+
+#this would be 22.7 * 36
+best_cost = 22.730556 * 36 
+#use this one for all of them
+b_c_extra = best_cost * 0.44471
+b_result = (best_cost + b_c_extra) * 300
+print(b_result * 17) #about 6,029,251
+
+#look to renivate the poor performing ones should focus on building c.
